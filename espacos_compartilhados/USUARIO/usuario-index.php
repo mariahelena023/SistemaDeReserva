@@ -43,16 +43,16 @@ require '../DB/conexao.php';
                                         foreach($usuarios as $usuario){
                                 ?>
                                 <tr>
-                                    <td><?= $usuario['id'] ?></td>
-                                    <td><?= $usuario['nome'] ?></td>
+                                    <td><?= $usuario['id_usuario'] ?></td>
+                                    <td><?= $usuario['nome_usuario'] ?></td>
                                     <td><?= $usuario['email'] ?></td>
                                     <td><?= $usuario['telefone'] ?></td>
                                     <td><?= $usuario['cpf'] ?></td>
                                     <td>
-                                        <a href="usuario-view.php?id=<?= $usuario['id'] ?>" class="btn btn-secondary btn-sm">Visualizar</a>
-                                        <a href="usuario-edit.php?id=<?= $usuario['id'] ?>" class="btn btn-success btn-sm">Editar</a>
+                                        <a href="usuario-view.php?id=<?= $usuario['id_usuario'] ?>" class="btn btn-secondary btn-sm">Visualizar</a>
+                                        <a href="usuario-edit.php?id=<?= $usuario['id_usuario'] ?>" class="btn btn-success btn-sm">Editar</a>
                                         <form action="acoes.php" type="submit" method="POST" class="d-inline">
-                                            <button onclick = "return confirm('Tem Certeza que Deseja Excluir?')" type="submit" name="delete_usuario" value="<?= $usuario['id'] ?>" class="btn btn-danger btn-sm">Excluir</button>
+                                            <button onclick = "return confirm('Tem Certeza que Deseja Excluir?')" type="submit" name="delete_usuario" value="<?= $usuario['id_usuario'] ?>" class="btn btn-danger btn-sm">Excluir</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -64,6 +64,7 @@ require '../DB/conexao.php';
                                 ?>
                             </tbody>
                         </table>
+                        <a href="../index.php" class="btn btn-danger float-start">Voltar</a>
                     </div>
                 </div>
             </div>
