@@ -18,11 +18,7 @@
                         </h4>
                     </div>
                     <div class="card-body">
-<<<<<<< HEAD
                         <form action="../ACOES/acoes.php" method="POST">
-=======
-                        <form action="./ACOES/acoes.php" method="POST">
->>>>>>> b3bc3df894ab6cade596db5f3137b1c214b2027a
                             <div class="mb-3">
                                 <label>Nome</label>
                                 <input type="text" name="nome_usuario" class="form-control">

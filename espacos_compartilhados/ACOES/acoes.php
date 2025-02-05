@@ -2,6 +2,7 @@
     session_start();
     require '../DB/conexao.php';
 
+    //USUARIO
     if(isset($_POST['create_usuario'])){
         $nome = mysqli_real_escape_string($conexao, trim($_POST['nome_usuario']));
         $email = mysqli_real_escape_string($conexao, trim($_POST['email']));
@@ -62,5 +63,68 @@
             exit;
         }
     }
+
+    //ESPACO
+    if(isset($_POST['create_espaco'])){
+        $nome = mysqli_real_escape_string($conexao, trim($_POST['nome_espaco']));
+        $tipo = mysqli_real_escape_string($conexao, trim($_POST['tipo']));
+        $capacidade = mysqli_real_escape_string($conexao, trim($_POST['capacidade']));
+        $descricao = mysqli_real_escape_string($conexao, trim($_POST['descricao']));
+
+        $sql = "INSERT INTO espaco (nome_espaco, tipo, capacidade, descricao) VALUES ('$nome', '$tipo', '$capacidade', '$descricao')";
+
+        mysqli_query($conexao, $sql);
+
+        if(mysqli_affected_rows($conexao) > 0){
+            $_SESSION['mensagem'] = 'Espaço Criado com Sucesso!';
+            header('Location: ../ESPACO/espaco-index.php');
+        } else{
+            $_SESSION['mensagem'] = 'Erro ao Criar Espaço!';
+            header('Location: ../ESPACO/espaco-index.php');
+            exit;
+        }
+    }
+
+    if(isset($_POST['update_espaco'])){
+        $espaco_id = mysqli_real_escape_string($conexao, $_POST['espaco_id']);
+        $nome = mysqli_real_escape_string($conexao, trim($_POST['nome_espaco']));
+        $tipo = mysqli_real_escape_string($conexao, trim($_POST['tipo']));
+        $capacidade = mysqli_real_escape_string($conexao, trim($_POST['capacidade']));
+        $descricao = mysqli_real_escape_string($conexao, trim($_POST['descricao']));
+
+
+        $sql = "UPDATE espaco SET nome_espaco = '$nome', tipo = '$tipo', capacidade = '$capacidade', descricao = '$descricao' WHERE id_espaco = '$espaco_id'";
+
+        mysqli_query($conexao, $sql);
+
+        if(mysqli_affected_rows($conexao) > 0){
+            $_SESSION['mensagem'] = 'Espaço Atualizado com Sucesso!';
+            header('Location: ../ESPACO/espaco-index.php');
+            exit;
+        } else{
+            $_SESSION['mensagem'] = 'Erro ao Atualizar Espaço!';
+            header('Location: ../ESPACO/espaco-index.php');
+            exit;
+        }
+    }
+    
+    if(isset($_POST['delete_espaco'])){
+        $espaco_id = mysqli_real_escape_string($conexao, $_POST['delete_espaco']);
+        
+        $sql = "DELETE FROM espaco WHERE id_espaco = '$espaco_id'";
+
+        mysqli_query($conexao, $sql);
+
+        if(mysqli_affected_rows($conexao) > 0){
+            $_SESSION['mensagem'] = 'Espaço Deletado com Sucesso!';
+            header('Location: ../ESPACO/espaco-index.php');
+            exit;
+        } else{
+            $_SESSION['mensagem'] = 'Espaço Não Foi Deletado!';
+            header('Location: ../ESPACO/espaco-index.php');
+            exit;
+        }
+    }
+
 
 ?>
