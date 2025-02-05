@@ -18,7 +18,7 @@ require './DB/conexao.php';
             <div class="d-grid gap-3">
                 <a href="./USUARIO/usuario-index.php" class="btn btn-primary btn-lg">Usuários</a>
                 <a href="./ESPACO/espaco-index.php" class="btn btn-success btn-lg">Espaços</a>
-                <a href="reserva-index.php" class="btn btn-secondary btn-lg">Reservas</a>
+                <a href="./RESERVA/reserva-index.php" class="btn btn-secondary btn-lg">Reservas</a>
             </div>
         </div>
     </div>
