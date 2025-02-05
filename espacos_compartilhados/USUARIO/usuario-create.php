@@ -18,10 +18,10 @@
                         </h4>
                     </div>
                     <div class="card-body">
-                        <form action="acoes.php" method="POST">
+                        <form action="../ACOES/acoes.php" method="POST">
                             <div class="mb-3">
                                 <label>Nome</label>
-                                <input type="text" name="nome" class="form-control">
+                                <input type="text" name="nome_usuario" class="form-control">
                             </div>
                             <div class="mb-3">
                                 <label>Email</label>

@@ -49,9 +49,9 @@ require '../DB/conexao.php';
                                     <td><?= $usuario['telefone'] ?></td>
                                     <td><?= $usuario['cpf'] ?></td>
                                     <td>
-                                        <a href="usuario-view.php?id=<?= $usuario['id_usuario'] ?>" class="btn btn-secondary btn-sm">Visualizar</a>
-                                        <a href="usuario-edit.php?id=<?= $usuario['id_usuario'] ?>" class="btn btn-success btn-sm">Editar</a>
-                                        <form action="acoes.php" type="submit" method="POST" class="d-inline">
+                                        <a href="usuario-view.php?id_usuario=<?= $usuario['id_usuario'] ?>" class="btn btn-secondary btn-sm">Visualizar</a>
+                                        <a href="usuario-edit.php?id_usuario=<?= $usuario['id_usuario'] ?>" class="btn btn-success btn-sm">Editar</a>
+                                        <form action="../ACOES/acoes.php" type="submit" method="POST" class="d-inline">
                                             <button onclick = "return confirm('Tem Certeza que Deseja Excluir?')" type="submit" name="delete_usuario" value="<?= $usuario['id_usuario'] ?>" class="btn btn-danger btn-sm">Excluir</button>
                                         </form>
                                     </td>
