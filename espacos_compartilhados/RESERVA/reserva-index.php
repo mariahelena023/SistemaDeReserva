@@ -30,36 +30,40 @@ require '../DB/conexao.php';
                                     <th>ID</th>
                                     <th>ID de Usuário</th>
                                     <th>ID do Espaço</th>
-                                    <th></th>
-                                    <th>Descrição</th>
+                                    <th>Data de Início</th>
+                                    <th>Data de Fim</th>
+                                    <th>Horário de Início</th>
+                                    <th>Horário de Fim</th>
                                     <th>Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                    $sql = "SELECT * FROM espaco";
-                                    $espacos = mysqli_query($conexao, $sql);
-                                    if(mysqli_num_rows($espacos) > 0){
-                                        foreach($espacos as $espaco){
+                                    $sql = "SELECT * FROM reserva";
+                                    $reservas = mysqli_query($conexao, $sql);
+                                    if(mysqli_num_rows($reservas) > 0){
+                                        foreach($reservas as $reserva){
                                 ?>
                                 <tr>
-                                    <td><?= $espaco['id_espaco'] ?></td>
-                                    <td><?= $espaco['nome_espaco'] ?></td>
-                                    <td><?= $espaco['tipo'] ?></td>
-                                    <td><?= $espaco['capacidade'] ?></td>
-                                    <td><?= $espaco['descricao'] ?></td>
+                                    <td><?= $reserva['id_reserva'] ?></td>
+                                    <td><?= $reserva['usuario_id'] ?></td>
+                                    <td><?= $reserva['espaco_id'] ?></td>
+                                    <td><?= $reserva['data_inicio'] ?></td>
+                                    <td><?= $reserva['data_fim'] ?></td>
+                                    <td><?= $reserva['hora_inicio'] ?></td>
+                                    <td><?= $reserva['hora_fim'] ?></td>
                                     <td>
-                                        <a href="espaco-view.php?id_espaco=<?= $espaco['id_espaco'] ?>" class="btn btn-secondary btn-sm">Visualizar</a>
-                                        <a href="espaco-edit.php?id_espaco=<?= $espaco['id_espaco'] ?>" class="btn btn-success btn-sm">Editar</a>
+                                        <a href="reserva-view.php?id_reserva=<?= $reserva['id_reserva'] ?>" class="btn btn-secondary btn-sm">Visualizar</a>
+                                        <a href="reserva-edit.php?id_reserva=<?= $reserva['id_reserva'] ?>" class="btn btn-success btn-sm">Editar</a>
                                         <form action="../ACOES/acoes.php" type="submit" method="POST" class="d-inline">
-                                            <button onclick = "return confirm('Tem Certeza que Deseja Excluir?')" type="submit" name="delete_espaco" value="<?= $espaco['id_espaco'] ?>" class="btn btn-danger btn-sm">Excluir</button>
+                                            <button onclick = "return confirm('Tem Certeza que Deseja Excluir?')" type="submit" name="delete_reserva" value="<?= $reserva['id_reserva'] ?>" class="btn btn-danger btn-sm">Excluir</button>
                                         </form>
                                     </td>
                                 </tr>
                                 <?php
                                         }
                                     } else{
-                                        echo '<h5>Nenhum Espaço Encontrado!</h5>';
+                                        echo '<h5>Nenhuma Reserva Encontrado!</h5>';
                                     }
                                 ?>
                             </tbody>
