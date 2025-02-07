@@ -31,3 +31,6 @@ CREATE TABLE reserva(
     FOREIGN KEY (espaco_id) REFERENCES espaco(id_espaco)
 );
 SELECT * FROM reserva;
+
+insert into usuario (nome_usuario, email, telefone, cpf) values ('maria', 'maria@sla.com', '67999999999', '12345678910');
+INSERT INTO reserva (usuario_id, espaco_id, data_inicio, data_fim, hora_inicio, hora_fim) VALUES ('7', '2', '2025-12-12', '2025-12-12', '14:00:00', '15:00:00');

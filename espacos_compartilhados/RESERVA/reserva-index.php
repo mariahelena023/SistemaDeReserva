@@ -27,43 +27,42 @@ require '../DB/conexao.php';
                         <table class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>ID de Usuário</th>
-                                    <th>ID do Espaço</th>
-                                    <th>Data de Início</th>
-                                    <th>Data de Fim</th>
-                                    <th>Horário de Início</th>
-                                    <th>Horário de Fim</th>
+                                    <th>ID de Reserva</th>
+                                    <th>Nome do Espaço</th>
+                                    <th>Tipo</th>
+                                    <th>Capacidade</th>
+                                    <th>Descrição</th>
                                     <th>Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                    $sql = "SELECT * FROM reserva";
+                                    $sql = "SELECT reserva.id_reserva, reserva.espaco_id, espaco.nome_espaco, espaco.tipo, espaco.capacidade, espaco.descricao
+                                            FROM reserva
+                                            INNER JOIN espaco ON reserva.espaco_id = espaco.id_espaco";
+
                                     $reservas = mysqli_query($conexao, $sql);
-                                    if(mysqli_num_rows($reservas) > 0){
-                                        foreach($reservas as $reserva){
-                                ?>
-                                <tr>
-                                    <td><?= $reserva['id_reserva'] ?></td>
-                                    <td><?= $reserva['usuario_id'] ?></td>
-                                    <td><?= $reserva['espaco_id'] ?></td>
-                                    <td><?= $reserva['data_inicio'] ?></td>
-                                    <td><?= $reserva['data_fim'] ?></td>
-                                    <td><?= $reserva['hora_inicio'] ?></td>
-                                    <td><?= $reserva['hora_fim'] ?></td>
-                                    <td>
-                                        <a href="reserva-view.php?id_reserva=<?= $reserva['id_reserva'] ?>" class="btn btn-secondary btn-sm">Visualizar</a>
-                                        <a href="reserva-edit.php?id_reserva=<?= $reserva['id_reserva'] ?>" class="btn btn-success btn-sm">Editar</a>
-                                        <form action="../ACOES/acoes.php" type="submit" method="POST" class="d-inline">
-                                            <button onclick = "return confirm('Tem Certeza que Deseja Excluir?')" type="submit" name="delete_reserva" value="<?= $reserva['id_reserva'] ?>" class="btn btn-danger btn-sm">Excluir</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                <?php
+
+                                    if (mysqli_num_rows($reservas) > 0) {
+                                        while ($reserva = mysqli_fetch_assoc($reservas)) {
+                                            ?>
+                                            <tr>
+                                                <td><?= $reserva['id_reserva'] ?></td>
+                                                <td><?= $reserva['nome_espaco'] ?></td>
+                                                <td><?= $reserva['tipo'] ?></td>
+                                                <td><?= $reserva['capacidade'] ?></td>
+                                                <td><?= $reserva['descricao'] ?></td>
+                                                <td>
+                                                    <a href="reserva-view.php?id_reserva=<?= $reserva['id_reserva'] ?>" class="btn btn-secondary btn-sm">Visualizar</a>
+                                                    <form action="../ACOES/acoes.php" type="submit" method="POST" class="d-inline">
+                                                        <button onclick="return confirm('Tem Certeza que Deseja Cancelar?')" type="submit" name="delete_reserva" value="<?= $reserva['id_reserva'] ?>" class="btn btn-danger btn-sm">Cancelar</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                            <?php
                                         }
-                                    } else{
-                                        echo '<h5>Nenhuma Reserva Encontrado!</h5>';
+                                    } else {
+                                        echo '<h5>Nenhuma Reserva Encontrada!</h5>';
                                     }
                                 ?>
                             </tbody>

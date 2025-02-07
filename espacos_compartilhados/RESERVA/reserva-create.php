@@ -48,7 +48,7 @@ require '../DB/conexao.php';
                                 <input type="time" name="hora_fim" class="form-control">
                             </div>
                             <div class="mb-3">
-                                <button type="submit" name="create_espaco" class="btn btn-primary">Salvar</button>
+                                <button type="submit" name="create_reserva" class="btn btn-primary">Salvar</button>
                             </div>
                         </form>
                     </div>
@@ -77,15 +77,23 @@ require '../DB/conexao.php';
                                     $espacos = mysqli_query($conexao, $sql);
                                     if(mysqli_num_rows($espacos) > 0){
                                         foreach($espacos as $espaco){
-                                ?>
-                                <tr>
-                                    <td><?= $espaco['id_espaco'] ?></td>
-                                    <td><?= $espaco['nome_espaco'] ?></td>
-                                    <td><?= $espaco['tipo'] ?></td>
-                                    <td><?= $espaco['capacidade'] ?></td>
-                                    <td><?= $espaco['descricao'] ?></td>
-                                </tr>
-                                <?php
+                                            $sql_reserva = "SELECT * FROM reserva WHERE espaco_id = '".$espaco['id_espaco']."'";
+                                            $reservas = mysqli_query($conexao, $sql_reserva);
+                                            $status_reserva = (mysqli_num_rows($reservas) > 0) ? 'Reservado' : 'Livre';
+                                    ?>
+                                        <tr>
+                                            <td><?= $espaco['id_espaco'] ?></td>
+                                            <td><?= $espaco['nome_espaco'] ?></td>
+                                            <td><?= $espaco['tipo'] ?></td>
+                                            <td><?= $espaco['capacidade'] ?></td>
+                                            <td><?= $espaco['descricao'] ?></td>
+                                            <td>
+                                                <span class="badge <?= ($status_reserva == 'Reservado') ? 'bg-danger' : 'bg-success' ?>">
+                                                    <?= $status_reserva ?>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    <?php
                                         }
                                     } else {
                                         echo '<h5>Nenhum Espaço Encontrado!</h5>';

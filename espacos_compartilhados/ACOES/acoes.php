@@ -126,5 +126,64 @@
         }
     }
 
+    //RESERVA
+    if(isset($_POST['create_reserva'])){
+        $id_usuario = mysqli_real_escape_string($conexao, trim($_POST['id_usuario']));
+        $id_espaco = mysqli_real_escape_string($conexao, trim($_POST['id_espaco']));
+        $data_inicio = mysqli_real_escape_string($conexao, trim($_POST['data_inicio']));
+        $data_fim = mysqli_real_escape_string($conexao, trim($_POST['data_fim']));
+        $hora_inicio = mysqli_real_escape_string($conexao, trim($_POST['hora_inicio']));
+        $hora_fim = mysqli_real_escape_string($conexao, trim($_POST['hora_fim']));
+    
+        $sql_verificacao = "SELECT * FROM reserva 
+                            WHERE espaco_id = '$id_espaco' 
+                            AND (
+                                (data_inicio BETWEEN '$data_inicio' AND '$data_fim') OR
+                                (data_fim BETWEEN '$data_inicio' AND '$data_fim') OR
+                                (data_inicio <= '$data_inicio' AND data_fim >= '$data_fim') OR
+                                (data_inicio >= '$data_inicio' AND data_fim <= '$data_fim')
+                            )";
+        
+        $resultado_verificacao = mysqli_query($conexao, $sql_verificacao);
+    
+        if (mysqli_num_rows($resultado_verificacao) > 0) {
+            $_SESSION['mensagem'] = 'O Espaço Já Está Reservado!';
+            header('Location: ../RESERVA/reserva-index.php');
+            exit;
+        }
+    
+        $sql = "INSERT INTO reserva (usuario_id, espaco_id, data_inicio, data_fim, hora_inicio, hora_fim) 
+                VALUES ('$id_usuario', '$id_espaco', '$data_inicio', '$data_fim', '$hora_inicio', '$hora_fim')";
+        
+        mysqli_query($conexao, $sql);
+    
+        if(mysqli_affected_rows($conexao) > 0){
+            $_SESSION['mensagem'] = 'Reserva Realizada com Sucesso!';
+            header('Location: ../RESERVA/reserva-index.php');
+        } else {
+            $_SESSION['mensagem'] = 'Erro ao Realizar Reserva!';
+            header('Location: ../RESERVA/reserva-index.php');
+            exit;
+        }
+    }
+    
+
+    if(isset($_POST['delete_reserva'])){
+        $reserva_id = mysqli_real_escape_string($conexao, $_POST['delete_reserva']);
+        
+        $sql = "DELETE FROM reserva WHERE id_reserva = '$reserva_id'";
+
+        mysqli_query($conexao, $sql);
+
+        if(mysqli_affected_rows($conexao) > 0){
+            $_SESSION['mensagem'] = 'Reserva Cancelada com Sucesso!';
+            header('Location: ../RESERVA/reserva-index.php');
+            exit;
+        } else{
+            $_SESSION['mensagem'] = 'Reserva Não Foi Cancelada!';
+            header('Location: ../RESERVA/reserva-index.php');
+            exit;
+        }
+    }
 
 ?>
