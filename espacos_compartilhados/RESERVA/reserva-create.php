@@ -69,6 +69,7 @@ require '../DB/conexao.php';
                                     <th>Tipo</th>
                                     <th>Capacidade</th>
                                     <th>Descrição</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
