@@ -69,9 +69,12 @@
         $nome = mysqli_real_escape_string($conexao, trim($_POST['nome_espaco']));
         $tipo = mysqli_real_escape_string($conexao, trim($_POST['tipo']));
         $capacidade = mysqli_real_escape_string($conexao, trim($_POST['capacidade']));
-        $descricao = mysqli_real_escape_string($conexao, trim($_POST['des
-        $sql = "INSERT INTO espaco (nome_espaco, tipo, capacidade, descricao) VALUES ('$nome', '$tipo', '$capacidade', '$de
+        $descricao = mysqli_real_escape_string($conexao, trim($_POST['descricao']));
+
+        $sql = "INSERT INTO espaco (nome_espaco, tipo, capacidade, descricao) VALUES ('$nome', '$tipo', '$capacidade', '$descricao')";
+
         mysqli_query($conexao, $sql);
+
         if(mysqli_affected_rows($conexao) > 0){
             $_SESSION['mensagem'] = 'Espaço Criado com Sucesso!';
             header('Location: ../ESPACO/espaco-index.php');
@@ -81,6 +84,7 @@
             exit;
         }
     }
+
     if(isset($_POST['update_espaco'])){
         $espaco_id = mysqli_real_escape_string($conexao, $_POST['espaco_id']);
         $nome = mysqli_real_escape_string($conexao, trim($_POST['nome_espaco']));
@@ -97,7 +101,7 @@
             $_SESSION['mensagem'] = 'Espaço Atualizado com Sucesso!';
             header('Location: ../ESPACO/espaco-index.php');
             exit;
-        }else{
+        } else{
             $_SESSION['mensagem'] = 'Erro ao Atualizar Espaço!';
             header('Location: ../ESPACO/espaco-index.php');
             exit;
@@ -156,7 +160,7 @@
         if(mysqli_affected_rows($conexao) > 0){
             $_SESSION['mensagem'] = 'Reserva Realizada com Sucesso!';
             header('Location: ../RESERVA/reserva-index.php');
-        } else{
+        } else {
             $_SESSION['mensagem'] = 'Erro ao Realizar Reserva!';
             header('Location: ../RESERVA/reserva-index.php');
             exit;
